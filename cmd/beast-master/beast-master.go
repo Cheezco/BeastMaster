@@ -6,7 +6,6 @@ import (
 	"BeastMaster/pkg"
 	"BeastMaster/pkg/configuration"
 	"flag"
-	"fmt"
 )
 
 var configPath string
@@ -21,8 +20,6 @@ func main() {
 		debug.Log(err)
 		panic(err)
 	}
-	fmt.Println("\033[42mHello, World!\033[0m")
-
 	debug.Log("Config loaded")
 
 	err = beast_master.RegisterRpcServices(config)
