@@ -1,0 +1,13 @@
+lazyRaven:
+  containers:
+    - id: "8457f7427b242108a68d3289da691e2df9de6a2b26fcd67697d699e508733d3c"
+    - id: "d2a949bae204ca8e3609c73f0343b2951dbc3c7cbe1c171337095d41f2699f74"
+cheekyChipmunk:
+  loggerPlugins:
+    - fileName: "defaultTxtLogger"
+      address: "localhost:1001"
+sleepyCapybara:
+  exportPlugins:
+    - fileName: "testPythonExporter.py"
+      launchCommand: "python"
+      address: "localhost:1201"
