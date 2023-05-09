@@ -6,8 +6,6 @@ require (
 	github.com/docker/docker v23.0.5+incompatible
 	github.com/gorilla/websocket v1.5.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
-	github.com/ybbus/jsonrpc/v3 v3.1.4
-	golang.org/x/sys v0.6.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
