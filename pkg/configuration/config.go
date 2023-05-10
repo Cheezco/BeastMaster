@@ -20,9 +20,10 @@ func (c *Config) SetDefaultValues() {
 	c.LazyRaven.ParserCount = 1
 
 	c.CheekyChipmunk.Address = "localhost:1200"
+	c.CheekyChipmunk.PluginAddress = "localhost:1500"
 
 	c.SleepyCapybara.Address = "localhost:1300"
-	c.SleepyCapybara.ExportAddress = "localhost:1400"
+	c.SleepyCapybara.PluginAddress = "localhost:1400"
 }
 
 func (c *Config) LoadConfig(network, address string) error {

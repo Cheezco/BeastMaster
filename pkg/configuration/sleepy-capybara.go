@@ -2,7 +2,7 @@ package configuration
 
 type SleepyCapybara struct {
 	Address       string         `yaml:"address"`
-	ExportAddress string         `yaml:"exportAddress"`
+	PluginAddress string         `yaml:"exportAddress"`
 	ExportPlugins []ExportPlugin `yaml:"exportPlugins"`
 }
 

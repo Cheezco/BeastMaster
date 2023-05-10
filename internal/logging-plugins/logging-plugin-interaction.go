@@ -1,8 +1,6 @@
 package logging_plugins
 
 import (
-	"BeastMaster/internal"
-	"BeastMaster/internal/debug"
 	"BeastMaster/pkg/configuration"
 	"errors"
 	"fmt"
@@ -23,21 +21,22 @@ func DetectPlugins(config configuration.Config) []configuration.LoggerPlugin {
 }
 
 func StartPlugin(plugin configuration.LoggerPlugin) {
-	for {
-		scanner, cmd := internal.RunExecutableWithScanner(
-			"./LoggerPlugins/"+plugin.FileName,
-			"-Address="+plugin.Address,
-		)
-
-		for scanner.Scan() {
-			fmt.Println(scanner.Text())
-		}
-		err := cmd.Wait()
-		if err != nil {
-			return
-		}
-		debug.Logf("%s logging plugin stopped. Restarting plugin...", plugin.FileName)
-	}
+	fmt.Sprintln(plugin) // temporary hack
+	//for {
+	//	//scanner, cmd := internal.RunExecutableWithScanner(
+	//	//	"./LoggerPlugins/"+plugin.FileName,
+	//	//	"-Address="+plugin.Address,
+	//	//)
+	//	//
+	//	//for scanner.Scan() {
+	//	//	fmt.Println(scanner.Text())
+	//	//}
+	//	//err := cmd.Wait()
+	//	//if err != nil {
+	//	//	return
+	//	//}
+	//	//debug.Logf("%s logging plugin stopped. Restarting plugin...", plugin.FileName)
+	//}
 
 }
 

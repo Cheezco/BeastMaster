@@ -39,11 +39,11 @@ func main() {
 		}
 	}()
 
-	debug.Logf("Started websocket server. Listening at: %s", config.SleepyCapybara.ExportAddress)
+	debug.Logf("Started websocket server. Listening at: %s", config.SleepyCapybara.PluginAddress)
 
 	plugins := sleepycapybara.DetectPlugins(config)
 	debug.Logf("%d plugins detected. Failed to detect %d plugins.", len(plugins), len(config.SleepyCapybara.ExportPlugins))
-	sleepycapybara.StartPlugins(&plugins, config.SleepyCapybara.ExportAddress)
+	sleepycapybara.StartPlugins(&plugins, config.SleepyCapybara.PluginAddress)
 
 	go pkg.StartRpcServer("tcp", config.SleepyCapybara.Address)
 	debug.Logf("RPC server started. Listening at: %s", config.SleepyCapybara.Address)

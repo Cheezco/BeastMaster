@@ -1,7 +1,6 @@
 package logging
 
 import (
-	"BeastMaster/pkg"
 	"BeastMaster/pkg/configuration"
 	"time"
 )
@@ -12,12 +11,12 @@ type PluginService struct {
 
 func (s *PluginService) Log(log AppLog, _ *interface{}) error {
 	log.Created = time.Now()
-	for _, plugin := range s.LoggerPlugins {
-		err := pkg.DialNoReply("tcp", plugin.Address, "LoggingPluginService.Log", log)
-		if err != nil {
-			continue
-		}
-	}
+	//for _, plugin := range s.LoggerPlugins {
+	//err := pkg.DialNoReply("tcp", plugin.Address, "LoggingPluginService.Log", log)
+	//if err != nil {
+	//	continue
+	//}
+	//}
 
 	return nil
 }
