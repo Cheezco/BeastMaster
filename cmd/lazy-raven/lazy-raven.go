@@ -1,6 +1,7 @@
 package main
 
 import (
+	"BeastMaster/internal"
 	"BeastMaster/internal/debug"
 	"BeastMaster/internal/monitoring"
 	"BeastMaster/pkg/configuration"
@@ -25,14 +26,18 @@ func main() {
 	debug.Log("Config loaded")
 
 	cpuEnergyStorage = monitoring.CpuEnergyStorage{}
-	go func() {
-		err := monitoring.RunCpuMonitor(&cpuEnergyStorage)
-		if err != nil {
-			debug.Log(err)
-			log.Fatal(err)
-		}
-	}()
-	debug.Log("CPU monitor started")
+	if internal.IsWindows() && !internal.IsInsideDockerContainer() {
+		go func() {
+			err := monitoring.RunCpuMonitor(&cpuEnergyStorage)
+			if err != nil {
+				debug.Log(err)
+				log.Fatal(err)
+			}
+		}()
+		debug.Log("CPU monitor started")
+	} else {
+		debug.Log("CPU monitor cannot be started. Wrong platform")
+	}
 
 	dataChan := make(chan string, len(config.LazyRaven.Containers)*2)
 	parsedDataChan := make(chan container_monitoring.ContainerData, len(config.LazyRaven.Containers)*2)
