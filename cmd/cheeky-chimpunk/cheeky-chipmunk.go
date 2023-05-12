@@ -9,6 +9,7 @@ import (
 	"flag"
 	"github.com/gorilla/websocket"
 	"log"
+	"math"
 )
 
 var configAddress string
@@ -42,7 +43,8 @@ func main() {
 	debug.Logf("Started websocket server. Listening at: %s", config.CheekyChipmunk.PluginAddress)
 
 	plugins := logging_plugins.DetectPlugins(config)
-	debug.Logf("%d plugins detected. Failed to detect %d plugins", len(plugins), len(config.CheekyChipmunk.LoggerPlugins))
+	debug.Logf("%d plugins detected. Failed to detect %d plugins", len(plugins),
+		math.Max(float64(len(config.CheekyChipmunk.LoggerPlugins)-len(plugins)), 0))
 	logging_plugins.StartPlugins(plugins, config.CheekyChipmunk.PluginAddress)
 
 	go pkg.StartRpcServer("tcp", config.CheekyChipmunk.Address)

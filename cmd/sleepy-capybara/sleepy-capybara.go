@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"log"
+	"math"
 )
 
 var configAddress string
@@ -42,7 +43,8 @@ func main() {
 	debug.Logf("Started websocket server. Listening at: %s", config.SleepyCapybara.PluginAddress)
 
 	plugins := sleepycapybara.DetectPlugins(config)
-	debug.Logf("%d plugins detected. Failed to detect %d plugins.", len(plugins), len(config.SleepyCapybara.ExportPlugins))
+	debug.Logf("%d plugins detected. Failed to detect %d plugins.", len(plugins),
+		math.Max(float64(len(config.SleepyCapybara.ExportPlugins)-len(plugins)), 0))
 	sleepycapybara.StartPlugins(&plugins, config.SleepyCapybara.PluginAddress)
 
 	go pkg.StartRpcServer("tcp", config.SleepyCapybara.Address)
