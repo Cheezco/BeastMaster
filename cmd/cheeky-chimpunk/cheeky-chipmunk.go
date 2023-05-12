@@ -7,6 +7,7 @@ import (
 	"BeastMaster/pkg"
 	"BeastMaster/pkg/configuration"
 	"flag"
+	"github.com/gorilla/websocket"
 	"log"
 )
 
@@ -29,9 +30,20 @@ func main() {
 	}
 	debug.Log("Config loaded")
 
+	connections := make([]*websocket.Conn, 0)
+	go func() {
+		err := cheekychipmunk.StartWebSocketListener(config.CheekyChipmunk.PluginAddress, &connections)
+		if err != nil {
+			debug.Log(err)
+			log.Fatal(err)
+		}
+	}()
+
+	debug.Logf("Started websocket server. Listening at: %s", config.CheekyChipmunk.PluginAddress)
+
 	plugins := logging_plugins.DetectPlugins(config)
 	debug.Logf("%d plugins detected. Failed to detect %d plugins", len(plugins), len(config.CheekyChipmunk.LoggerPlugins))
-	logging_plugins.StartPlugins(plugins)
+	logging_plugins.StartPlugins(plugins, config.CheekyChipmunk.PluginAddress)
 
 	go pkg.StartRpcServer("tcp", config.CheekyChipmunk.Address)
 	debug.Logf("RPC server started. Listening at: %s", config.CheekyChipmunk.Address)

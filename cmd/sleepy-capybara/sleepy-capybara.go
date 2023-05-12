@@ -32,7 +32,7 @@ func main() {
 	}
 
 	go func() {
-		err := sleepycapybara.StartWebsocketListener(config.SleepyCapybara.Address, &connections)
+		err := sleepycapybara.StartWebsocketListener(config.SleepyCapybara.PluginAddress, &connections)
 		if err != nil {
 			debug.Log(err)
 			log.Fatal(err)
