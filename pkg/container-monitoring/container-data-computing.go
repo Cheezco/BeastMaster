@@ -3,6 +3,7 @@ package container_monitoring
 import (
 	"BeastMaster/pkg/configuration"
 	"encoding/json"
+	"github.com/pbnjay/memory"
 	"github.com/shirou/gopsutil/cpu"
 	"time"
 )
@@ -49,10 +50,21 @@ func GetComputedData(value ContainerData, cpuEnergyUsage int, containers []confi
 		CpuUsagePercent:    cpuUsage,
 		UsedMemory:         usedMemory,
 		MemoryUsagePercent: memoryUsage,
+		MemoryEnergyUsed:   getRamEnergy(memoryUsage),
 		NumberOfCpus:       numberCpus,
 		CpuEnergyUsed:      cpuEnergy,
 		TimeStamp:          time.Now(),
 	}
+}
+
+// Super naive way of calculating ram power
+func getRamEnergy(memoryUsagePercent float64) float64 {
+	voltage := 1.35 // This only works for non overclocked ddr4, but I can't be asked to figure out how to get systems actual ram type
+	totalMemory := memory.TotalMemory() / 1024 / 1024 / 1024
+	maximumCurrentDraw := float64(totalMemory) * voltage / 8
+	current := maximumCurrentDraw * memoryUsagePercent / 100
+
+	return voltage * current
 }
 
 func getContainerAlias(id string, name string, containers []configuration.Container) string {
