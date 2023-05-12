@@ -3,7 +3,6 @@ package container_monitoring
 import (
 	"BeastMaster/pkg/configuration"
 	"encoding/json"
-	"fmt"
 	"github.com/shirou/gopsutil/cpu"
 	"time"
 )
@@ -59,13 +58,10 @@ func GetComputedData(value ContainerData, cpuEnergyUsage int, containers []confi
 func getContainerAlias(id string, name string, containers []configuration.Container) string {
 	for _, c := range containers {
 		if c.Id != id || c.Alias == "" {
-			fmt.Printf("%s != %s\n", c.Id, id)
 			continue
 		}
-		fmt.Printf("(%s) Alias found: %s\n", id, c.Alias)
 		return c.Alias
 	}
-	fmt.Printf("(%s) Alias not found, using name: %s\n", id, name)
 
 	return name
 }
