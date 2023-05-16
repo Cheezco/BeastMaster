@@ -25,7 +25,7 @@ func DetectPlugins(config configuration.Config) []configuration.ExportPlugin {
 	return plugins
 }
 
-func StartPlugin(plugin *configuration.ExportPlugin, serverAddress string) {
+func StartPlugin(plugin configuration.ExportPlugin, serverAddress string) {
 	for {
 		var scanner *bufio.Scanner
 		var cmd *exec.Cmd
@@ -66,8 +66,8 @@ func StartPlugin(plugin *configuration.ExportPlugin, serverAddress string) {
 
 }
 
-func StartPlugins(plugins *[]configuration.ExportPlugin, serverAddress string) {
-	for index := range *plugins {
-		go StartPlugin(&(*plugins)[index], serverAddress)
+func StartPlugins(plugins []configuration.ExportPlugin, serverAddress string) {
+	for _, plugin := range plugins {
+		go StartPlugin(plugin, serverAddress)
 	}
 }
