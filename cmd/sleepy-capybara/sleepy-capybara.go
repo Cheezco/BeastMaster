@@ -44,7 +44,7 @@ func main() {
 
 	plugins := sleepycapybara.DetectPlugins(config)
 	debug.Logf("%d plugins detected. Failed to detect %d plugins.", len(plugins),
-		math.Max(float64(len(config.SleepyCapybara.ExportPlugins)-len(plugins)), 0))
+		int(math.Max(float64(len(config.SleepyCapybara.ExportPlugins)-len(plugins)), 0)))
 	sleepycapybara.StartPlugins(plugins, config.SleepyCapybara.PluginAddress)
 
 	go pkg.StartRpcServer("tcp", config.SleepyCapybara.Address)

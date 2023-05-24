@@ -44,7 +44,7 @@ func main() {
 
 	plugins := logging_plugins.DetectPlugins(config)
 	debug.Logf("%d plugins detected. Failed to detect %d plugins", len(plugins),
-		math.Max(float64(len(config.CheekyChipmunk.LoggerPlugins)-len(plugins)), 0))
+		int(math.Max(float64(len(config.CheekyChipmunk.LoggerPlugins)-len(plugins)), 0)))
 	logging_plugins.StartPlugins(plugins, config.CheekyChipmunk.PluginAddress)
 
 	go pkg.StartRpcServer("tcp", config.CheekyChipmunk.Address)
