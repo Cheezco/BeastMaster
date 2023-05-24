@@ -7,6 +7,7 @@ type SleepyCapybara struct {
 }
 
 type ExportPlugin struct {
-	FileName      string `yaml:"fileName"`
-	LaunchCommand string `yaml:"launchCommand"`
+	FileName              string `yaml:"fileName"`
+	LaunchCommand         string `yaml:"launchCommand"`
+	RequiredDockerCompose string `yaml:"requiredDockerCompose"`
 }

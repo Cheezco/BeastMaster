@@ -7,6 +7,7 @@ type LazyRaven struct {
 }
 
 type Container struct {
-	Id    string `yaml:"id"`
-	Alias string `yaml:"alias"`
+	Id      string `yaml:"id"`
+	Alias   string `yaml:"alias"`
+	Compose string `yaml:"compose"`
 }

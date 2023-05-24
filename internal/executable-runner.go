@@ -15,3 +15,12 @@ func RunExecutableWithScanner(path string, args ...string) (*bufio.Scanner, *exe
 
 	return bufio.NewScanner(stdout), cmd
 }
+
+func RunDockerCommand(args ...string) (*bufio.Scanner, *exec.Cmd) {
+	return RunExecutableWithScanner("docker", args...)
+}
+
+func RunDockerComposeCommand(args ...string) (*bufio.Scanner, *exec.Cmd) {
+	args = append([]string{"compose"}, args...)
+	return RunDockerCommand(args...)
+}

@@ -66,7 +66,17 @@ func StartPlugin(plugin configuration.ExportPlugin, serverAddress string) {
 
 }
 
+func startRequiredDockerCompose(path string) {
+	internal.RunDockerComposeCommand("-f", path, "up", "-d")
+}
+
 func StartPlugins(plugins []configuration.ExportPlugin, serverAddress string) {
+	for _, plugin := range plugins {
+		if plugin.RequiredDockerCompose == "" {
+			continue
+		}
+		startRequiredDockerCompose(plugin.RequiredDockerCompose)
+	}
 	for _, plugin := range plugins {
 		go StartPlugin(plugin, serverAddress)
 	}
