@@ -43,17 +43,27 @@ func GetComputedData(value ContainerData, cpuEnergyUsage int, containers []confi
 		cpuEnergy = 0
 	}
 
+	networkReceivedBytes := 0
+	networkSentBytes := 0
+
+	for _, network := range value.Networks {
+		networkReceivedBytes += network.RxBytes
+		networkSentBytes += network.TxBytes
+	}
+
 	return ComputedContainerData{
-		Name:               getContainerAlias(value.ID, value.Name[1:], containers),
-		CpuDelta:           cpuDelta,
-		SystemCpuDelta:     systemCpuDelta,
-		CpuUsagePercent:    cpuUsage,
-		UsedMemory:         usedMemory,
-		MemoryUsagePercent: memoryUsage,
-		MemoryEnergyUsed:   getRamEnergy(memoryUsage),
-		NumberOfCpus:       numberCpus,
-		CpuEnergyUsed:      cpuEnergy,
-		TimeStamp:          time.Now(),
+		Name:                 getContainerAlias(value.ID, value.Name[1:], containers),
+		CpuDelta:             cpuDelta,
+		SystemCpuDelta:       systemCpuDelta,
+		CpuUsagePercent:      cpuUsage,
+		UsedMemory:           usedMemory,
+		MemoryUsagePercent:   memoryUsage,
+		MemoryEnergyUsed:     getRamEnergy(memoryUsage),
+		NumberOfCpus:         numberCpus,
+		CpuEnergyUsed:        cpuEnergy,
+		TimeStamp:            time.Now(),
+		NetworkReceivedBytes: networkReceivedBytes,
+		NetworkSentBytes:     networkSentBytes,
 	}
 }
 

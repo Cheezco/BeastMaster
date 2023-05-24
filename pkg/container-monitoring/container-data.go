@@ -91,18 +91,18 @@ type ContainerData struct {
 		} `json:"stats"`
 		Limit int64 `json:"limit"`
 	} `json:"memory_stats"`
-	Name     string `json:"name"`
-	ID       string `json:"id"`
-	Networks struct {
-		Eth0 struct {
-			RxBytes   int `json:"rx_bytes"`
-			RxPackets int `json:"rx_packets"`
-			RxErrors  int `json:"rx_errors"`
-			RxDropped int `json:"rx_dropped"`
-			TxBytes   int `json:"tx_bytes"`
-			TxPackets int `json:"tx_packets"`
-			TxErrors  int `json:"tx_errors"`
-			TxDropped int `json:"tx_dropped"`
-		} `json:"eth0"`
-	} `json:"networks"`
+	Name     string                      `json:"name"`
+	ID       string                      `json:"id"`
+	Networks map[string]NetworkInterface `json:"networks"`
+}
+
+type NetworkInterface struct {
+	RxBytes   int `json:"rx_bytes"`
+	RxPackets int `json:"rx_packets"`
+	RxErrors  int `json:"rx_errors"`
+	RxDropped int `json:"rx_dropped"`
+	TxBytes   int `json:"tx_bytes"`
+	TxPackets int `json:"tx_packets"`
+	TxErrors  int `json:"tx_errors"`
+	TxDropped int `json:"tx_dropped"`
 }
